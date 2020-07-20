@@ -1,60 +1,71 @@
+"syntax highlighting"
 syntax on 
 
+"auto change directory"
+set autochdir
 set noerrorbells
 set tabstop=2 softtabstop=2
 set shiftwidth=2
 set expandtab
 set smartindent
-set nu
+" Line number"
+set nu 
 set smartcase
 set incsearch
+" allow backspace delete "
 set backspace=indent,eol,start
+set relativenumber
 
 call plug#begin('~/.vim/plugged')
 Plug 'gruvbox-community/gruvbox'
+Plug 'leafgarland/typescript-vim'
 Plug 'jremmen/vim-ripgrep'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-utils/vim-man'
-Plug 'git@github.com:kien/ctrlp.vim.git'
-Plug 'preservim/nerdcommenter'
-Plug 'git@github.com:Valloric/YouCompleteMe.git'
-Plug 'mbbill/undotree'
 Plug 'itchyny/lightline.vim'
 Plug 'dense-analysis/ale'
+Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-commentary'
+Plug 'christoomey/vim-system-copy'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-commentary'
 call plug#end()
 
 colorscheme gruvbox
 set bg=dark
 
+highlight Normal ctermbg=None
+highlight LimeNr ctermfg=yellow
+
+"detect git root and use gitignore for faster rg"
 if executable('rg')
   let g:rg_derive_root='true'
 endif
-let g:ctrlp_user_command=['.git/', 'git --git-dir=%s/.git ls-files -oc --excludei-standard']
-let mapleader=" "
+
+"File Tree cleaner display"
 let g:netrw_browse_split=2
 let g:netrw_banner=0
-let g:netrw_winsice=25
+let g:netrw_winsice = 25
 
-let g:ctrlp_use_caching=0
-
+let mapleader = " "
+nnoremap <leader>f :FZF<CR>
+"change directory"
+nnoremap <leader>cd :cd %:p:h<CR>
+"take visual lines and move then up or down"
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+"tab swap"
+nnoremap <leader><Tab> <C-^>
+"space space exits out of insert mode"
+imap <leader><SPACE> <ESC>
+"window split movement"
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>w <C-W>v<C-W><Right>
-nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>t :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-nnoremap <leader>s <S-^>
-nnoremap <leader>p :GFiles<CR>
-nnoremap <leader>e <S-$>
-nnoremap <Leader>ps :Rg<SPACE>
+"window resize"
 nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
-imap <leader><SPACE> <ESC>
-
-nnoremap <silent> <Leader>gd :YcmCompleter GoTo<CR>
-nnoremap <silent> <Leader>gr :YcmCompleter GoToReferences<CR>
-nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
+"open file tree in new split"
+nnoremap <leader>t :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"ripgrep"
+nnoremap <Leader>rg :Rg<SPACE>
