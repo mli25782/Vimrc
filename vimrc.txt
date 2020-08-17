@@ -1,8 +1,6 @@
 "syntax highlighting"
-syntax on 
+syntax on
 
-"auto change directory"
-set autochdir
 set noerrorbells
 set tabstop=2 softtabstop=2
 set shiftwidth=2
@@ -10,46 +8,45 @@ set expandtab
 set smartindent
 " Line number"
 set nu 
+set relativenumber
 set smartcase
 set incsearch
 " allow backspace delete "
 set backspace=indent,eol,start
-set relativenumber
 
 call plug#begin('~/.vim/plugged')
+Plug 'francoiscabrol/ranger.vim'
+Plug 'mattn/emmet-vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'machakann/vim-highlightedyank'
+Plug 'voldikss/vim-floaterm'
 Plug 'gruvbox-community/gruvbox'
 Plug 'leafgarland/typescript-vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'itchyny/lightline.vim'
 Plug 'dense-analysis/ale'
-Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-commentary'
 Plug 'christoomey/vim-system-copy'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 colorscheme gruvbox
 set bg=dark
 
 highlight Normal ctermbg=None
-highlight LimeNr ctermfg=yellow
+highlight LineNr ctermfg=yellow
 
 "detect git root and use gitignore for faster rg"
 if executable('rg')
   let g:rg_derive_root='true'
 endif
 
-"File Tree cleaner display"
-let g:netrw_browse_split=2
-let g:netrw_banner=0
-let g:netrw_winsice = 25
-
 let mapleader = " "
 nnoremap <leader>f :FZF<CR>
-"change directory"
-nnoremap <leader>cd :cd %:p:h<CR>
 "take visual lines and move then up or down"
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
@@ -67,5 +64,16 @@ nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
 "open file tree in new split"
 nnoremap <leader>t :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+"take visual lines and move then up or down"
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 "ripgrep"
 nnoremap <Leader>rg :Rg<SPACE>
+"floaterm swap screen"
+let g:floaterm_keymap_new    = '<F7>'
+let g:floaterm_keymap_prev   = '<F8>'
+let g:floaterm_keymap_next   = '<F9>'
+let g:floaterm_keymap_toggle = '<F12>'
+"disable default ranger"
+let g:ranger_map_keys = 0
+map <leader>r :RangerWorkingDirectory<CR>
