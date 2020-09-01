@@ -15,10 +15,18 @@ set smartcase incsearch
 set backspace=indent,eol,start
 
 call plug#begin('~/.vim/plugged')
+" post install (yarn install | npm install) then load plugin only for editing supported files
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'iamcco/mathjax-support-for-mkdp'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install' }
+Plug 'vimwiki/vimwiki'
 Plug 'SirVer/ultisnips'
 Plug 'epilande/vim-react-snippets'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'mattn/emmet-vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'machakann/vim-highlightedyank'
@@ -77,8 +85,17 @@ let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
+"disable default ranger"
+let g:ranger_map_keys = 0
+map <leader>r :RangerWorkingDirectory<CR>
+map <leader>md :MarkdownPreview<CR>
 "react code snippets""
 let g:UltiSnipsExpandTrigger="<C-l>"
+"Use markdown for vimwiki"
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+      \ 'syntax': 'markdown', 'ext': '.md'}]
+"disable autoload md file when open"
+let g:instant_markdown_autostart = 0
 "Git fugitive commands"
 "git status"
 nmap <leader>gs :G<CR> 
