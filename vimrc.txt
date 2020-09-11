@@ -57,45 +57,61 @@ if executable('rg')
 endif
 
 let mapleader = " "
+
+"fzf find"
 nnoremap <leader>f :FZF<CR>
+
 "take visual lines and move then up or down"
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
 "tab swap"
 nnoremap <leader><Tab> <C-^>
+
 "space space exits out of insert mode"
 imap <leader><SPACE> <ESC>
+
 "window split movement"
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
+
 "window resize"
 nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
+
 "open file tree in new split"
 nnoremap <leader>t :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+
 "take visual lines and move then up or down"
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
+
 "ripgrep"
 nnoremap <Leader>rg :Rg<SPACE>
+
 "floaterm swap screen"
 let g:floaterm_keymap_new    = '<F7>'
 let g:floaterm_keymap_prev   = '<F8>'
 let g:floaterm_keymap_next   = '<F9>'
 let g:floaterm_keymap_toggle = '<F12>'
+
 "disable default ranger"
 let g:ranger_map_keys = 0
 map <leader>r :RangerWorkingDirectory<CR>
 map <leader>md :MarkdownPreview<CR>
+
 "react code snippets""
 let g:UltiSnipsExpandTrigger="<C-l>"
+
 "Use markdown for vimwiki"
 let g:vimwiki_list = [{'path': '~/vimwiki/',
       \ 'syntax': 'markdown', 'ext': '.md'}]
+
 "disable autoload md file when open"
 let g:instant_markdown_autostart = 0
+
 "Git fugitive commands"
 "git status"
 nmap <leader>gs :G<CR> 
